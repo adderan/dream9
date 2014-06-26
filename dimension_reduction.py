@@ -26,12 +26,12 @@ def choose_features(data, blocks, num_features):
 	expression = data.expression
 	copynumber = data.copynumber
 	
-	genes_to_rank = 1 #data.genes_to_rank
+	genes_to_rank = data.genes_to_rank
 	samples = data.samples
 	
 	copynumber_genes = data.copynumber_genes
 	expression_genes = data.expression_genes
-	assert(expression.shape[1] == 45)
+	#assert(expression.shape[1] == 45)
 	
 	blocksize = int((copynumber_genes + expression_genes)/blocks)
 	Xall = np.concatenate([expression, copynumber])

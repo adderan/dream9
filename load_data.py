@@ -38,7 +38,7 @@ class DreamData:
 		self.samples = self.essentiality.shape[1]
 		self.copynumber_genes = self.copynumber.shape[0]
 		self.expression_genes = self.expression.shape[0]
-		#self.ranking = self.rank_genes()
+		self.ranking = self.rank_genes()
 	def normalize_data(self):
 		oldshape = self.copynumber.shape
 		copynumber_max = numpy.amax(self.copynumber, 0)
@@ -50,7 +50,18 @@ class DreamData:
 			self.expression[:,i] = self.expression[:,i]*(1/expression_max[i])
 		assert(self.copynumber.shape == oldshape)
 		print("max copynumber = " + str(numpy.amax(self.copynumber, 0)[0]))
-	
+	def rank_genes(self):
+		ranking = numpy.zeros(shape=(self.genes_to_rank, self.samples))
+		for s in range(0, self.samples):
+			essentiality_tuples = []
+			for i in range(0, self.genes_to_rank):
+				essentiality_tuples.append((i, self.essentiality[i,s]))
+			sample_ranking = sorted(essentiality_tuples, key=lambda tup : tup[1])
+			for i in range(0, self.genes_to_rank):
+				gene_id = sample_ranking[i][0]
+				ranking[gene_id, s] = self.genes_to_rank - 1 - i
+		return ranking	
+
 		
 		
 		
