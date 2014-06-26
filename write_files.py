@@ -5,7 +5,7 @@ def write_svm_data(num_features, num_blocks):
 	svm_train_file = open("svm_train_file.dat", "w")
 	svm_test_file = open("svm_test_file.dat", "w")
 	data = load_data.load_data()
-	data.genes_to_rank = 3
+	#data.genes_to_rank = 3
 	train_samples = 40
 	features = dimension_reduction.choose_features(data, num_blocks, num_features)
 	for s in range(0, data.samples):
