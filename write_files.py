@@ -35,7 +35,7 @@ def write_svm_data(num_features, num_blocks):
 	
 	
 def main():
-	write_svm_data(10, 100)
+	write_svm_data(10, 1000)
 	
 if __name__ == "__main__":
 	main()	

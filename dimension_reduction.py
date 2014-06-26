@@ -9,17 +9,17 @@ def ridge_regression(X, y):
 	X = X.T #ridge regression used (samples, features)
 	a = X.shape[0]
 	b = X.shape[1]
-	print("X shape: " + str(X.shape))
+	#print("X shape: " + str(X.shape))
 	db = np.zeros((b,b), float)
 	np.fill_diagonal(db, 1)
 	x0 = X.T.dot(X) + db
-	print("X0 shape = " + str(x0.shape))
+	#print("X0 shape = " + str(x0.shape))
 	x1 = np.linalg.inv(x0)
-	print("x1 shape = " + str(x1.shape))
-	print("y shape = " + str(y.shape))
+	#print("x1 shape = " + str(x1.shape))
+	#print("y shape = " + str(y.shape))
 	x2 = X.T.dot(y)
 	beta = x1.dot(x2)
-	print("beta shape = " + str(beta.shape))
+	#print("beta shape = " + str(beta.shape))
 	return beta
 def choose_features(data, blocks, num_features): 
 	essentiality = data.essentiality
@@ -33,8 +33,11 @@ def choose_features(data, blocks, num_features):
 	expression_genes = data.expression_genes
 	#assert(expression.shape[1] == 45)
 	
-	blocksize = int((copynumber_genes + expression_genes)/blocks)
 	Xall = np.concatenate([expression, copynumber])
+	Xall = Xall[0:42000:1]
+	blocksize = (Xall.shape[0])/blocks
+	print("blocksize = " + str(blocksize))
+	
 	
 	features = np.zeros(shape=(genes_to_rank, num_features))
 	
@@ -60,7 +63,7 @@ def choose_features_for_gene(Xall, y, blocks, blocksize, num_features):
 		combined_weight_vector = np.hstack((combined_weight_vector, abs(w)))
 		combined_weight_vector_no_abs = np.hstack((combined_weight_vector_no_abs, w))
 	top_features = []
-	print("shape of combined_weight_vector: " + str(combined_weight_vector.shape))
+	#print("shape of combined_weight_vector: " + str(combined_weight_vector.shape))
 	for f in range(0, num_features):
 		feature_index = np.argmax(combined_weight_vector, 0)
 		top_features.append(feature_index)
