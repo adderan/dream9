@@ -5,7 +5,7 @@ write.svm.file <- function(cluster.assignments, essentiality, data, n.clusters) 
 
 	for(g in 1:genes) {
 		for(s in 1:samples) {
-			means <- cluster.means(cluster.assignments, n.clusters, data, s)
+			values <- cluster.values(cluster.assignments, n.clusters, data, s)
 			line <- ""
 			line <- paste(essentiality[g, s], line, sep="")
 			line <- paste(line, " qid:", sep="")
@@ -14,7 +14,7 @@ write.svm.file <- function(cluster.assignments, essentiality, data, n.clusters) 
 				line <- paste(line, " ", sep="")
 				line <- paste(line, i, sep="")
 				line <- paste(line, ":", sep="")
-				line <- paste(line, means[i], sep="")
+				line <- paste(line, values[i], sep="")
 			}
 		}
 		cat(line, "\n")
@@ -24,10 +24,12 @@ write.svm.file <- function(cluster.assignments, essentiality, data, n.clusters) 
 main <- function() {
 	load("../dream9-training.RData")
 	source("feature-cluster.R")
-	n.clusters <- 100
+	source("../../dpc/dpc.R")
+	n.clusters <- 10
 
 	data <- normalize.data(expression, copy.number)
 	cluster.assignments <- cluster.features(data, n.clusters)
+	#cluster.assignments <- dpc(data, n.clusters)
 	write.svm.file(cluster.assignments, essentiality, data, n.clusters)
 }
 

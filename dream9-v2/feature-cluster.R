@@ -5,7 +5,7 @@ cluster.features <- function(data, n) {
 	#print(cluster.assignments)
 	cat("dimension of cluster: ", length(cluster.assignments), "\n")
 	cat("sums of squares: ", clusters$withinss, "\n")
-	cluster.means(cluster.assignments, n, data, 1)
+	#cluster.means(cluster.assignments, n, data, 1)
 	return(cluster.assignments)
 	 
 }
@@ -18,6 +18,17 @@ cluster.means <- function(cluster.assignments, n.clusters, data, sample) {
 	means <- means / length(cluster.assignments)
 	#cat("length of means: ", length(means), "\n")
 	return(means)
+}
+cluster.values <- function(cluster.assignments, n.clusters, data, sample) {
+	values <- c(rep(-1337, n.clusters))
+	for(i in 1:length(cluster.assignments)) {
+		c <- cluster.assignments[i]
+		v <- data[i, sample]
+		if(values[c] != -1337) {
+			values[c] <- v
+		}
+	}
+	return(values)
 }
 
 
