@@ -32,11 +32,11 @@ write.data <- function() {
 	essentiality <- read.matrix("data/Achilles_v2.9_training.gct",1)
 	copy.number <- read.matrix("data/CCLE_copynumber_training.gct",1)
 	expression <- read.matrix("data/CCLE_expression_training.gct",2)
-	save(essentiality, copy.number, expression, file = "dream9-training.RData")
+	#save(essentiality, copy.number, expression, file = "dream9-training.RData")
 
-	copy.number <- read.matrix("data/CCLE_copynumber_leaderboard.gct",1)
-	expression <- read.matrix("data/CCLE_expression_leaderboard.gct",2)
-	save(copy.number, expression, file = "dream9-leaderboard.RData")
+	copy.number.test <- read.matrix("data/CCLE_copynumber_leaderboard.gct",1)
+	expression.test <- read.matrix("data/CCLE_expression_leaderboard.gct",2)
+	save(essentiality, copy.number, expression, copy.number.test, expression.test, file = "dream9.RData")
 
 }
 
